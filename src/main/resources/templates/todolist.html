@@ -1,0 +1,88 @@
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous"/>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">My To-Do List</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <br>
+    <br>
+
+    <b>Add Todo </b>
+
+    <form class="form" action="#" th:action="@{/v1/addTodo}" method="POST" th:object="${todo}">
+        <div class="form-group">
+            <label for="description" class="form-label">Description:</label>
+            <textarea id="description" class="form-control" th:field="*{description}" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Add Todo</button>
+        </div>
+    </form>
+
+    <br>
+    <br>
+
+
+    <div class="container mt-4">
+
+        <div class="card">
+            <h3 class="card-header bg-primary text-white">Todo List</h3>
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Description</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="todo: ${todos}">
+                        <td th:text="${todo.description}"></td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="/update-todo?id=${todo.id}">Update</a>
+                            <a class="btn btn-sm btn-danger" th:href="@{/delete-todo(id=${todo.id})}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    </body>
+    </html>
